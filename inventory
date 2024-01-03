@@ -1,4 +1,8 @@
+[linux]
 wazuh.internal
 plex.internal
 sonarr.internal
+ra.sgsca.internal
 
+[windows]
+5wysoffice.internal
