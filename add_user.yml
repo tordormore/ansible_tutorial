@@ -1,0 +1,13 @@
+---
+
+- hosts: linux
+  become: true
+  tasks:
+
+  - name: add SGS user
+      user: name=sgs
+            state=present
+            group=primary-group
+            groups="sudo"
+            password={{ password }}
+            comment="Ansible primary user"
