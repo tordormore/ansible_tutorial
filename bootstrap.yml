@@ -2,19 +2,40 @@
 
 - hosts: linux
   become: true
+  pre_tasks:
+
+  - name: install updates (CentOS)
+    tags: always
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "CentOS"
+
+  - name: install updates (Debian or Ubuntu)
+    tags: always
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution in ["Debian,Ubuntu"]
+
+- hosts: linux
+  become: true
   tasks:
 
   - name: add SGS user
+    tags: always
     user:
       name: sgs
       groups: root
 
   - name: add ssh key for sgs
+    tags: always
     authorized_key:
       user: sgs
       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPoev0DdR99LupaKpzPKm3hqy1jANDQPKnKG+bWvSFIt ansible"
 
   - name: add sudoers file for sgs
+    tags: always
     copy:
       src: sudoer_sgs
       dest: /etc/sudoers.d/sgs
