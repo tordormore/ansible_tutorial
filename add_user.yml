@@ -5,9 +5,19 @@
   tasks:
 
   - name: add SGS user
-      user: name=sgs
-            state=present
-            group=primary-group
-            groups="sudo"
-            password={{ password }}
-            comment="Ansible primary user"
+    user:
+      name: sgs
+      groups: root
+
+  - name: add ssh key for sgs
+    authorized_key:
+      user: sgs
+      key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPoev0DdR99LupaKpzPKm3hqy1jANDQPKnKG+bWvSFIt ansible"
+
+  - name: add sudoers file for sgs
+    copy:
+      src: sudoer_sgs
+      dest: /etc/sudoers.d/sgs
+      owner: root
+      group: root
+      mode: 0440
