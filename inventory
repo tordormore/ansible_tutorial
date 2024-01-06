@@ -3,6 +3,7 @@ wazuh.internal
 plex.internal
 sonarr.internal
 ra.sgsca.internal
+ansible.internal
 
 [windows]
 5wysoffice.internal
