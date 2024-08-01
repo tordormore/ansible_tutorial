@@ -1,9 +1,24 @@
 [linux]
 wazuh.internal
 plex.internal
-sonarr.internal
-ra.sgsca.internal
 ansible.internal
+misp.internal
+velociraptor.internal
+shuffle.internal
 
 [windows]
-5wysoffice.internal
+5wysoffice.internal ansible_port=5986
+
+[wazuh-agents]
+plex.internal
+ansible.internal
+misp.internal
+velociraptor.internal
+shuffle.internal
+proxmox.internal
+cloudflared.internal
+sabnzbd.internal
+sonarr.internal
+readarr.internal
+thehive.internal
+

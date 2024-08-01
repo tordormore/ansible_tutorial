@@ -1,0 +1,16 @@
+---
+- name: Ensure SGSHome_UEMSLinuxAgent.zip is present
+  hosts: cortex.internal,thehive.internal
+  become: true
+  tasks:
+    - name: Unzip the file
+      ansible.builtin.shell:
+        cmd: unzip -o /home/sgs/SGSHome_UEMSLinuxAgent.zip -d /home/sgs/
+
+    - name: Make UEMS_LinuxAgent.bin executable
+      ansible.builtin.shell:
+        cmd: chmod +x /home/sgs/UEMS_LinuxAgent.bin
+
+    - name: Execute UEMS_LinuxAgent.bin
+      ansible.builtin.shell:
+        cmd: /home/sgs/UEMS_LinuxAgent.bin

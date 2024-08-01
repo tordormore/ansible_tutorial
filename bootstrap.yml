@@ -1,6 +1,7 @@
 ---
 
-- hosts: linux
+- hosts: iris.internal
+  remote_user: tordormore
   become: true
   pre_tasks:
 
@@ -18,7 +19,8 @@
       update_cache: yes
     when: ansible_distribution in ["Debian,Ubuntu"]
 
-- hosts: linux
+- hosts: iris.internal
+  remote_user: tordormore
   become: true
   tasks:
 

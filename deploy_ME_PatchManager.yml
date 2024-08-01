@@ -1,0 +1,35 @@
+---
+- name: Ensure SGSHome_UEMSLinuxAgent.zip is present
+  hosts: shuffle.internal
+  become: true
+  tasks:
+    - name: Install unzip if not already installed
+      ansible.builtin.apt:
+        name: unzip
+        state: present
+
+    - name: Check if the zip file exists
+      ansible.builtin.stat:
+        path: /home/sgs/SGSHome_UEMSLinuxAgent.zip
+      register: zip_file_status
+
+    - name: Copy the zip file if it doesn't exist
+      ansible.builtin.copy:
+        src: SGSHome_UEMSLinuxAgent.zip
+        dest: /home/sgs/
+      when: not zip_file_status.stat.exists
+
+    - name: Unzip the file
+      ansible.builtin.shell:
+        cmd: unzip -o /home/sgs/SGSHome_UEMSLinuxAgent.zip -d /home/sgs/
+      when: not zip_file_status.stat.exists
+
+    - name: Make UEMS_LinuxAgent.bin executable
+      ansible.builtin.shell:
+        cmd: chmod +x /home/sgs/UEMS_LinuxAgent.bin
+      when: not zip_file_status.stat.exists
+
+    - name: Execute UEMS_LinuxAgent.bin
+      ansible.builtin.shell:
+        cmd: /home/sgs/UEMS_LinuxAgent.bin
+      when: not zip_file_status.stat.exists

@@ -2,6 +2,7 @@
 
 - hosts: linux
   become: true
+  remote_user: sgs
   pre_tasks:
 
   - name: install updates (CentOS)
